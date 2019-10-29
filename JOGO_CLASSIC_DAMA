@@ -1,0 +1,152 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package damas.java;
+
+/**
+ *
+ * @author MkRobot
+ */
+import java.awt.BorderLayout;
+import java.awt.Button;
+import java.awt.Color;
+import java.awt.Cursor;
+import java.awt.Event;
+import java.awt.EventQueue;
+import java.awt.FlowLayout;
+import java.awt.Font;
+import javax.swing.BorderFactory;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.border.BevelBorder;
+import javax.swing.border.EmptyBorder;
+import javax.swing.border.TitledBorder;
+//public class Damas extends Applet
+public class DamasGUI extends JFrame {
+ 
+    private static final long serialVersionUID = 1L;
+    private JPanel contentPane;
+ 
+    tabuleiro t;
+    interface_tabuleiro i;
+    int x, y;
+    Button b1, b2, b3, b4, b5;
+    JPanel p;
+    int resposta = 0;
+ 
+    public static void main(String[] args) {
+        EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                try {
+                    DamasGUI frame = new DamasGUI();
+                    frame.setVisible(true);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+    }
+ 
+    public DamasGUI() {
+        setTitle(&quot;Jogoamas & quot;);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        // setBounds(100, 100, 450, 300);
+ 
+        // Tamanho da Janela Principal
+        setSize(600, 600);
+        // Aparecer no centro da tela
+        setLocationRelativeTo(null);
+ 
+        contentPane = new JPanel();
+        contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+        setContentPane(contentPane);
+        contentPane.setLayout(null);
+ 
+        if (t == null)
+            t = new tabuleiro();
+ 
+        getContentPane().setLayout(new BorderLayout());
+ 
+        if (p == null)
+            p = new JPanel();
+        p.setBorder(BorderFactory.createTitledBorder(BorderFactory
+                .createBevelBorder(BevelBorder.RAISED), &quot;Painel&quot;,
+                TitledBorder.LEFT, TitledBorder.DEFAULT_POSITION, new Font(
+                        &quot;Arial&quot;, Font.BOLD, 12), new Color(0, 0, 0)));
+        p.setLayout(new FlowLayout(FlowLayout.LEFT));
+ 
+        if (b1 == null)
+            b1 = new Button(&quot;Jogar c/ brancas&quot;);
+        // b1.setToolTipText(&quot;Contato&quot;);
+        b1.setCursor(new Cursor(Cursor.HAND_CURSOR));
+ 
+        if (b2 == null)
+            b2 = new Button(&quot;Jogar c/ pretas&quot;);
+        b2.setCursor(new Cursor(Cursor.HAND_CURSOR));
+ 
+        if (b3 == null)
+            b3 = new Button(&quot;1&quot;);
+        b3.setCursor(new Cursor(Cursor.HAND_CURSOR));
+ 
+        if (b4 == null)
+            b4 = new Button(&quot;2&quot;);
+        b4.setCursor(new Cursor(Cursor.HAND_CURSOR));
+ 
+        if (b5 == null)
+            b5 = new Button(&quot;3&quot;);
+        b5.setCursor(new Cursor(Cursor.HAND_CURSOR));
+ 
+        p.add(b1);
+        p.add(b2);
+        p.add(b3);
+        p.add(b4);
+        p.add(b5);
+ 
+        getContentPane().add(&quot;North&quot;, p);
+ 
+        if (i == null)
+            i = new Interface_tabuleiro(this, t, -1);
+ 
+        i.acabou = 0;
+        i.computador = 10;
+        i.level = 5;
+ 
+        getContentPane().add(&quot;Center&quot;, i);
+ 
+    }
+ 
+    public boolean action(Event evt, Object arg) {
+        boolean quot;
+ 
+        if (&quot;1&quot;.equals(arg)) {
+            i.level = 5;
+            i.repaint();
+            return true;
+        }
+ 
+        if (&quot;2&quot;.equals(arg)) {
+            i.level = 6;
+            i.repaint();
+            return true;
+        }
+ 
+        if (&quot;3&quot;.equals(arg)) {
+            i.level = 7;
+            i.repaint();
+            return true;
+        }
+ 
+        if (&quot;Jogar c/ brancas&quot;.equals(arg))
+            i.recomeca(1);
+ 
+        else
+            i.recomeca(-1);
+ 
+        i.repaint();
+ 
+        return true;
+    }// Fim do metodo booleano
+ 
+}
